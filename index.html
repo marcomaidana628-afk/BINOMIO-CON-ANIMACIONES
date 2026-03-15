@@ -244,15 +244,11 @@
             color: white;
         }
         
+        /* NUEVO BOTÓN: LIMPIAR REGISTROS DEL MES */
         .btn-limpiar-mes {
             background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
             color: white;
             border: 2px solid rgba(255, 69, 0, 0.5);
-        }
-        
-        .btn-sonido {
-            background: linear-gradient(135deg, #FF6B6B 0%, #FF4949 100%);
-            color: white;
         }
         
         /* Actions Grid */
@@ -702,281 +698,15 @@
                 transform: none;
             }
         }
-        
-        /* ============================================
-           ESTILOS DE NOTIFICACIONES DUOLINGO
-           ============================================ */
-        
-        .notification-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 999999;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            max-width: 400px;
-            width: calc(100% - 40px);
-            pointer-events: none;
-        }
-        
-        .duo-notification {
-            background: rgba(30, 30, 30, 0.95);
-            backdrop-filter: blur(10px);
-            border-left: 6px solid var(--notification-color);
-            border-radius: 20px;
-            padding: 20px 18px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
-            transform: translateX(120%) scale(0.8);
-            opacity: 0;
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            pointer-events: auto;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .duo-notification.show {
-            transform: translateX(0) scale(1);
-            opacity: 1;
-        }
-        
-        .duo-notification.hiding {
-            transform: translateX(120%) scale(0.8);
-            opacity: 0;
-        }
-        
-        .notification-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 4px;
-            background: var(--notification-color);
-            width: 100%;
-            transform-origin: left;
-            animation: progressShrink 10s linear forwards;
-            opacity: 0.5;
-        }
-        
-        @keyframes progressShrink {
-            from { transform: scaleX(1); }
-            to { transform: scaleX(0); }
-        }
-        
-        .notification-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-        
-        .notification-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--notification-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            color: white;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .notification-category {
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--notification-color);
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-        
-        .notification-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--color-text-light);
-            margin-left: auto;
-            opacity: 0.7;
-            background: rgba(255,255,255,0.1);
-            padding: 4px 10px;
-            border-radius: 20px;
-        }
-        
-        .notification-content {
-            font-size: 1rem;
-            line-height: 1.5;
-            color: var(--color-text);
-            padding-right: 15px;
-            font-weight: 400;
-        }
-        
-        .notification-emoji {
-            position: absolute;
-            bottom: 10px;
-            right: 15px;
-            font-size: 3rem;
-            opacity: 0.15;
-            transform: rotate(5deg);
-            pointer-events: none;
-        }
-        
-        .notification-time {
-            margin-top: 12px;
-            font-size: 0.8rem;
-            color: var(--color-text-muted);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .notification-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 12px;
-            background: var(--notification-color);
-            color: white;
-            font-size: 0.7rem;
-            font-weight: 700;
-            margin-left: 8px;
-        }
-        
-        /* ============================================
-           ESTILOS DEL CONTADOR DE 5 SEGUNDOS
-           ============================================ */
-        
-        .contador-registro {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-tertiary) 100%);
-            border-radius: 30px;
-            padding: 30px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(76, 175, 80, 0.3);
-            z-index: 1000000;
-            text-align: center;
-            min-width: 320px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-        }
-        
-        .contador-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .contador-icono {
-            font-size: 3rem;
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
-        }
-        
-        .contador-titulo {
-            color: var(--color-text-light);
-            font-size: 1.5rem;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        
-        .contador-info {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .contador-turno {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        
-        .contador-fecha {
-            font-size: 1rem;
-            color: var(--color-text-muted);
-        }
-        
-        .contador-numero {
-            font-size: 5rem;
-            font-weight: 900;
-            line-height: 1;
-            margin: 15px 0;
-            color: var(--color-warning);
-            text-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
-            transition: all 0.1s ease;
-        }
-        
-        .contador-barra {
-            width: 100%;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            margin: 20px 0;
-            overflow: hidden;
-        }
-        
-        .contador-progreso {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-warning) 100%);
-            border-radius: 10px;
-            transition: width 1s linear;
-        }
-        
-        .contador-botones {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .contador-btn {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            border-radius: 15px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .contador-btn.cancelar {
-            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
-            color: white;
-        }
-        
-        .contador-btn.confirmar {
-            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
-            color: white;
-        }
-        
-        .contador-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        
-        .contador-ayuda {
-            margin-top: 15px;
-            font-size: 0.85rem;
-            color: var(--color-text-muted);
-        }
-        
-        /* ============================================
-           ESTILOS DEL DOODLE FESTIVIDADES BOLIVIA
-           ============================================ */
+    </style>
+    
+    <!-- ESTILOS DEL DOODLE FESTIVIDADES BOLIVIA (AUTOMÁTICO) -->
+    <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+Pro:wght@400;600&display=swap');
         
+        /* ============================================
+           ESTILOS DEL DOODLE OVERLAY
+           ============================================ */
         .doodle-overlay {
             position: fixed;
             top: 0;
@@ -1286,9 +1016,7 @@
                         <button class="btn" id="toggle-dev" style="background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%);">
                             <i class="fas fa-code"></i> Desarrollador
                         </button>
-                        <button class="btn btn-sonido" id="toggle-sound" style="background: linear-gradient(135deg, #FF6B6B 0%, #FF4949 100%);">
-                            <i class="fas fa-volume-up"></i> Sonidos
-                        </button>
+                        <!-- EL BOTÓN DE FESTIVIDADES HA SIDO ELIMINADO - AHORA ES AUTOMÁTICO -->
                     </div>
                     
                     <div id="cloud-status" class="cloud-status cloud-disconnected">
@@ -1357,9 +1085,11 @@
                     <button class="btn btn-importar" id="importar-sistema">
                         <i class="fas fa-file-import"></i> Importar JSON
                     </button>
+                    <!-- NUEVO BOTÓN: LIMPIAR REGISTROS DEL MES -->
                     <button class="btn btn-limpiar-mes" id="limpiar-mes-actual">
                         <i class="fas fa-trash-alt"></i> Limpiar mes actual
                     </button>
+                    <!-- EL BOTÓN DE GUARDAR EN CARPETA HA SIDO ELIMINADO - AHORA ES AUTOMÁTICO -->
                 </div>
                 
                 <div id="status-message" class="status"></div>
@@ -1468,7 +1198,7 @@
 
     <script>
         // ============================================
-        // SISTEMA PRINCIPAL - CON TODAS LAS MEJORAS Y CORRECCIONES
+        // SISTEMA PRINCIPAL - OPTIMIZADO PARA TODOS LOS DISPOSITIVOS
         // ============================================
         
         // Configuración del sistema
@@ -1477,7 +1207,6 @@
         let registros = [];
         let usuarioGoogle = null;
         let datosEnLaNube = false;
-        let isProcessing = false;
         
         // Contraseña de desarrollador
         const PASSWORD_DEVELOPER = "menuruchan2";
@@ -1486,10 +1215,14 @@
         const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
         const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
         
+        // Variables para optimización
+        let isProcessing = false;
+        
         // ============================================
         // FUNCIONES PRINCIPALES
         // ============================================
         
+        // Obtener fecha y hora actual
         function obtenerFechaHora() {
             const ahora = new Date();
             const año = ahora.getFullYear();
@@ -1502,6 +1235,7 @@
             return { fecha, hora, diaSemana };
         }
         
+        // Actualizar hora en pantalla
         function actualizarHora() {
             const ahora = new Date();
             const opciones = { 
@@ -1517,6 +1251,7 @@
                 `🕒 ${ahora.toLocaleDateString('es-ES', opciones)}`;
         }
         
+        // Guardar en localStorage
         function guardarEnLocalStorage(clave, valor) {
             try {
                 localStorage.setItem(clave, JSON.stringify(valor));
@@ -1527,6 +1262,7 @@
             }
         }
         
+        // Cargar desde localStorage
         function cargarDesdeLocalStorage(clave, valorPorDefecto) {
             try {
                 const valor = localStorage.getItem(clave);
@@ -1537,12 +1273,15 @@
             }
         }
         
+        // Mostrar mensaje de estado
         function mostrarMensaje(texto, tipo = 'success') {
             const elemento = document.getElementById('status-message');
             elemento.textContent = texto;
             elemento.className = 'status';
             elemento.classList.add(tipo === 'success' ? 'status-success' : 'status-error');
             elemento.style.display = 'block';
+            
+            // Scroll suave al mensaje
             elemento.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             
             setTimeout(() => {
@@ -1550,6 +1289,7 @@
             }, 3000);
         }
         
+        // Actualizar estado de la nube
         function actualizarEstadoNube(conectado, mensaje = '') {
             const cloudStatus = document.getElementById('cloud-status');
             const cloudStatusText = document.getElementById('cloud-status-text');
@@ -1567,6 +1307,7 @@
         // FUNCIONES DE FIREBASE
         // ============================================
         
+        // Iniciar sesión con Google
         async function iniciarSesionGoogle() {
             if (isProcessing) return;
             isProcessing = true;
@@ -1582,10 +1323,6 @@
                 document.getElementById('login-google').style.display = 'none';
                 document.getElementById('logout-google').style.display = 'flex';
                 
-                if (window.duoSystem) {
-                    window.duoSystem.showCustomNotification('login', { nombre: usuarioGoogle.displayName });
-                }
-                
                 await cargarDatosDesdeLaNube();
             } catch (error) {
                 console.error('Error al iniciar sesión:', error);
@@ -1595,15 +1332,12 @@
             }
         }
         
+        // Cerrar sesión Google
         async function cerrarSesionGoogle() {
             if (isProcessing) return;
             isProcessing = true;
             
             try {
-                if (window.duoSystem) {
-                    window.duoSystem.showCustomNotification('logout');
-                }
-                
                 await signOut(window.firebaseAuth);
                 usuarioGoogle = null;
                 actualizarEstadoNube(false, 'Desconectado');
@@ -1612,6 +1346,7 @@
                 document.getElementById('logout-google').style.display = 'none';
                 document.getElementById('login-google').style.display = 'flex';
                 
+                // Recargar datos locales
                 cargarDatosIniciales();
                 actualizarTabla();
             } catch (error) {
@@ -1622,6 +1357,7 @@
             }
         }
         
+        // Guardar datos en la nube
         async function guardarDatosEnLaNube() {
             if (!usuarioGoogle) {
                 actualizarEstadoNube(false, 'No hay usuario autenticado');
@@ -1629,6 +1365,7 @@
             }
             
             try {
+                // Obtener todos los días del mes actual
                 const diasCompletosDelMes = generarDiasCompletosDelMes();
                 
                 const datosSistema = {
@@ -1636,17 +1373,13 @@
                     registros: registros,
                     usuarioActual: usuarioActual,
                     salarioHora: document.getElementById('salario-hora').value,
+                    // Incluir todos los días del mes en el JSON
                     diasCompletosDelMes: diasCompletosDelMes,
                     fechaActualizacion: serverTimestamp()
                 };
                 
                 await firebaseSetDoc(firebaseDoc(window.firebaseDb, 'usuarios', usuarioGoogle.uid), datosSistema);
                 actualizarEstadoNube(true, 'Datos guardados en la nube');
-                
-                if (window.duoSystem) {
-                    window.duoSystem.showCustomNotification('sync');
-                }
-                
                 return true;
             } catch (error) {
                 console.error('Error guardando en la nube:', error);
@@ -1655,6 +1388,7 @@
             }
         }
         
+        // Cargar datos desde la nube
         async function cargarDatosDesdeLaNube() {
             if (!usuarioGoogle) {
                 return false;
@@ -1675,6 +1409,7 @@
                         document.getElementById('salario-hora').value = datos.salarioHora;
                     }
                     
+                    // Guardar también en localStorage como backup
                     guardarEnLocalStorage('usuarios', usuarios);
                     guardarEnLocalStorage('registros', registros);
                     guardarEnLocalStorage('usuarioActual', usuarioActual);
@@ -1691,6 +1426,7 @@
                     mostrarMensaje('✅ Datos sincronizados desde la nube', 'success');
                     return true;
                 } else {
+                    // Crear perfil nuevo en la nube
                     await guardarDatosEnLaNube();
                     actualizarEstadoNube(true, 'Nuevo perfil creado en la nube');
                     return true;
@@ -1706,18 +1442,21 @@
         // FUNCIONES DE USUARIO
         // ============================================
         
+        // Cargar datos iniciales
         function cargarDatosIniciales() {
             usuarios = cargarDesdeLocalStorage('usuarios', ['MARCO MAIDANA', 'JUAN PÉREZ', 'MARÍA GARCÍA']);
             registros = cargarDesdeLocalStorage('registros', []);
             usuarioActual = cargarDesdeLocalStorage('usuarioActual', null);
         }
         
+        // Mostrar modal de usuario
         function mostrarModalUsuario() {
             actualizarListaUsuarios();
             document.getElementById('usuario-modal').classList.add('active');
             setTimeout(() => document.getElementById('nuevo-usuario').focus(), 100);
         }
         
+        // Actualizar lista de usuarios
         function actualizarListaUsuarios() {
             const lista = document.getElementById('lista-usuarios');
             lista.innerHTML = '';
@@ -1749,6 +1488,7 @@
             });
         }
         
+        // Seleccionar usuario
         async function seleccionarUsuario(usuario) {
             usuarioActual = usuario;
             guardarEnLocalStorage('usuarioActual', usuarioActual);
@@ -1763,6 +1503,7 @@
             mostrarMensaje(`Usuario seleccionado: ${usuarioActual}`, 'success');
         }
         
+        // Crear nuevo usuario
         async function crearUsuario() {
             const nuevoUsuario = document.getElementById('nuevo-usuario').value.trim();
             
@@ -1783,14 +1524,16 @@
             }
         }
         
+        // Actualizar display del usuario
         function actualizarDisplayUsuario() {
             document.getElementById('nombre-display').textContent = usuarioActual || 'No seleccionado';
         }
         
         // ============================================
-        // FUNCIONES DE REGISTRO DE TURNOS - CORREGIDAS
+        // FUNCIONES DE REGISTRO DE TURNOS
         // ============================================
         
+        // Calcular horas trabajadas
         function calcularHoras(entrada, salida) {
             if (!entrada || !salida) return 0;
             
@@ -1805,17 +1548,33 @@
                 minutos += 60;
             }
             
-            if (horas < 0) horas += 24;
+            if (horas < 0) horas += 24; // Para turnos nocturnos
             
             return horas + (minutos / 60);
         }
         
-        // Función que ejecuta el registro
-        function ejecutarRegistro(turno, tipo) {
+        // Registrar turno (AHORA CON GUARDADO AUTOMÁTICO EN CARPETA)
+        async function registrarTurno(turno, tipo) {
+            if (isProcessing) return;
+            isProcessing = true;
+            
+            if (!usuarioActual) {
+                mostrarMensaje('Primero debes seleccionar un usuario', 'error');
+                mostrarModalUsuario();
+                isProcessing = false;
+                return;
+            }
+            
             const { fecha, hora, diaSemana } = obtenerFechaHora();
             const salarioHora = parseFloat(document.getElementById('salario-hora').value) || 8.50;
             
-            console.log(`Ejecutando registro: ${tipo} ${turno} a las ${hora}`);
+            // Verificar si es domingo
+            if (diaSemana === 'Domingo') {
+                if (!confirm('⚠️ ¡Es Domingo! ¿Estás seguro de registrar turno?')) {
+                    isProcessing = false;
+                    return;
+                }
+            }
             
             // Buscar registro existente
             let registroIndex = registros.findIndex(r => 
@@ -1852,7 +1611,6 @@
                 }
                 
                 registros.push(nuevoRegistro);
-                console.log('Nuevo registro creado:', nuevoRegistro);
             } else {
                 // Actualizar registro existente
                 const registro = registros[registroIndex];
@@ -1868,144 +1626,31 @@
                 }
                 
                 registro.diaSemana = diaSemana;
-                console.log('Registro actualizado:', registro);
             }
             
             // Guardar datos
             if (guardarEnLocalStorage('registros', registros)) {
                 if (usuarioGoogle) {
-                    guardarDatosEnLaNube();
+                    await guardarDatosEnLaNube();
                 }
                 
                 actualizarTabla();
+                
+                // Enviar notificación por WhatsApp
                 enviarWhatsApp(turno, tipo, fecha, hora);
-                guardarRegistroEnCarpetaLocal(turno, tipo, fecha, hora);
                 
-                // Disparar eventos para notificaciones
-                document.dispatchEvent(new CustomEvent('turnoRegistrado'));
-                
-                // Notificación especial según el turno
-                if (window.duoSystem) {
-                    if (turno === 'Mañana' && tipo === 'Entrada') {
-                        window.duoSystem.showNotification({
-                            title: "🌅 BUENOS DÍAS",
-                            message: "¡Registro de entrada guardado! Que tengas productiva mañana.",
-                            category: "éxito",
-                            icon: "☀️",
-                            emoji: "✨",
-                            color: "var(--notification-morning)",
-                            sound: "morning"
-                        });
-                    } else if (turno === 'Mañana' && tipo === 'Salida') {
-                        window.duoSystem.showNotification({
-                            title: "🏁 BUEN TRABAJO",
-                            message: "¡Salida registrada! Disfruta tu almuerzo.",
-                            category: "éxito",
-                            icon: "🍽️",
-                            emoji: "😊",
-                            color: "var(--notification-success)",
-                            sound: "success"
-                        });
-                    } else if (turno === 'Tarde' && tipo === 'Entrada') {
-                        window.duoSystem.showNotification({
-                            title: "☀️ BUENAS TARDES",
-                            message: "¡Entrada registrada! Vamos por esa tarde productiva.",
-                            category: "éxito",
-                            icon: "✨",
-                            emoji: "💪",
-                            color: "var(--notification-afternoon)",
-                            sound: "afternoon"
-                        });
-                    } else if (turno === 'Tarde' && tipo === 'Salida') {
-                        window.duoSystem.showNotification({
-                            title: "🌙 HASTA MAÑANA",
-                            message: "¡Salida registrada! Descansa y recarga energías.",
-                            category: "éxito",
-                            icon: "🌃",
-                            emoji: "😴",
-                            color: "var(--notification-info)",
-                            sound: "celebration"
-                        });
-                    }
-                }
+                // ===== GUARDADO AUTOMÁTICO EN CARPETA LOCAL (SIN BOTÓN) =====
+                await guardarRegistroEnCarpetaLocal(turno, tipo, fecha, hora);
                 
                 mostrarMensaje(`${tipo} ${turno} registrado correctamente`, 'success');
             } else {
                 mostrarMensaje('Error al guardar el registro', 'error');
             }
+            
+            isProcessing = false;
         }
         
-        // Función con validación y contador - CORREGIDA
-        function registrarTurnoConValidacion(turno, tipo) {
-            console.log(`🔄 Intentando registrar: ${tipo} ${turno}`);
-            
-            // Verificar si ya hay un conteo activo
-            if (window.contadorRegistro && window.contadorRegistro.isActive()) {
-                if (window.duoSystem) {
-                    window.duoSystem.showNotification({
-                        title: "⏰ YA HAY UN REGISTRO",
-                        message: "Ya tienes un registro en proceso. Completa o cancela ese primero.",
-                        category: "error",
-                        icon: "⚠️",
-                        emoji: "😅",
-                        color: "var(--notification-error)",
-                        duration: 3000,
-                        sound: "error"
-                    });
-                }
-                return;
-            }
-            
-            // Verificar que hay usuario seleccionado
-            if (!usuarioActual) {
-                mostrarMensaje('Primero debes seleccionar un usuario', 'error');
-                mostrarModalUsuario();
-                return;
-            }
-            
-            const { hora, diaSemana } = obtenerFechaHora();
-            
-            // Verificar si es domingo
-            if (diaSemana === 'Domingo') {
-                document.dispatchEvent(new CustomEvent('domingoDetectado'));
-                if (!confirm('🙏 ¡Es Domingo! ¿Estás seguro de registrar turno?')) {
-                    return;
-                }
-            }
-            
-            // Iniciar contador de 5 segundos
-            if (window.contadorRegistro) {
-                window.contadorRegistro.iniciar(
-                    turno, 
-                    tipo, 
-                    // Confirmado
-                    (turnoConfirmado, tipoConfirmado) => {
-                        console.log(`✅ Confirmado: ${tipoConfirmado} ${turnoConfirmado}`);
-                        ejecutarRegistro(turnoConfirmado, tipoConfirmado);
-                    },
-                    // Cancelado
-                    () => {
-                        console.log('❌ Registro cancelado');
-                        if (window.duoSystem) {
-                            window.duoSystem.showNotification({
-                                title: "✗ REGISTRO CANCELADO",
-                                message: "Has cancelado el registro. Puedes intentar cuando quieras.",
-                                category: "cancelado",
-                                icon: "😴",
-                                emoji: "💤",
-                                color: "var(--notification-warning)",
-                                duration: 3000,
-                                sound: "error"
-                            });
-                        }
-                    }
-                );
-            } else {
-                console.warn('⚠️ Contador no disponible, registrando directamente');
-                ejecutarRegistro(turno, tipo);
-            }
-        }
-        
+        // Enviar WhatsApp
         function enviarWhatsApp(turno, tipo, fecha, hora) {
             const mensaje = `📌 REGISTRO DE ASISTENCIA
 
@@ -2021,13 +1666,20 @@
             window.open(url, '_blank');
         }
         
+        // ============================================
+        // FUNCIÓN AUTOMÁTICA: GUARDAR REGISTRO EN CARPETA LOCAL
+        // ============================================
         async function guardarRegistroEnCarpetaLocal(turno, tipo, fecha, hora) {
             try {
+                // Crear estructura de carpetas: EDITORIAL_BINOMIO/USUARIO/AÑO/MES/
                 const año = fecha.split('-')[0];
                 const mes = fecha.split('-')[1];
                 const nombreMes = meses[parseInt(mes) - 1];
+                
+                // Nombre del usuario (reemplazar espacios y caracteres especiales)
                 const usuarioFolder = usuarioActual.replace(/[^a-zA-Z0-9]/g, '_');
                 
+                // Generar contenido del registro
                 const registroTexto = `========================================
 EDITORIAL BINOMIO - REGISTRO DE TURNO
 ========================================
@@ -2040,21 +1692,52 @@ Tipo: ${tipo}
 Generado: ${new Date().toLocaleString()}
 ========================================\n\n`;
                 
+                // Nombre del archivo: YYYY-MM-DD_TURNO_TIPO.txt
                 const nombreArchivo = `${fecha}_${turno}_${tipo}.txt`;
                 
+                // Intentar usar File System Access API (Chrome/Edge/Opera) - SIN INTERVENCIÓN DEL USUARIO
                 if ('showDirectoryPicker' in window) {
                     try {
+                        // Usar un identificador persistente para no pedir permisos cada vez
                         const dirHandle = await window.showDirectoryPicker({
                             id: 'editorial-binomio-auto',
                             mode: 'readwrite',
                             startIn: 'downloads'
                         });
                         
-                        let binomioDir = await dirHandle.getDirectoryHandle('EDITORIAL_BINOMIO', { create: true });
-                        let usuarioDir = await binomioDir.getDirectoryHandle(usuarioFolder, { create: true });
-                        let añoDir = await usuarioDir.getDirectoryHandle(año, { create: true });
-                        let mesDir = await añoDir.getDirectoryHandle(`${mes}_${nombreMes}`, { create: true });
+                        // Navegar/crear estructura: EDITORIAL_BINOMIO
+                        let binomioDir;
+                        try {
+                            binomioDir = await dirHandle.getDirectoryHandle('EDITORIAL_BINOMIO', { create: true });
+                        } catch {
+                            binomioDir = await dirHandle.getDirectoryHandle('EDITORIAL_BINOMIO');
+                        }
                         
+                        // Navegar/crear: USUARIO
+                        let usuarioDir;
+                        try {
+                            usuarioDir = await binomioDir.getDirectoryHandle(usuarioFolder, { create: true });
+                        } catch {
+                            usuarioDir = await binomioDir.getDirectoryHandle(usuarioFolder);
+                        }
+                        
+                        // Navegar/crear: AÑO
+                        let añoDir;
+                        try {
+                            añoDir = await usuarioDir.getDirectoryHandle(año, { create: true });
+                        } catch {
+                            añoDir = await usuarioDir.getDirectoryHandle(año);
+                        }
+                        
+                        // Navegar/crear: MES
+                        let mesDir;
+                        try {
+                            mesDir = await añoDir.getDirectoryHandle(`${mes}_${nombreMes}`, { create: true });
+                        } catch {
+                            mesDir = await añoDir.getDirectoryHandle(`${mes}_${nombreMes}`);
+                        }
+                        
+                        // Crear/abrir archivo
                         const fileHandle = await mesDir.getFileHandle(nombreArchivo, { create: true });
                         const writable = await fileHandle.createWritable();
                         await writable.write(registroTexto);
@@ -2063,17 +1746,24 @@ Generado: ${new Date().toLocaleString()}
                         console.log('✅ Registro guardado automáticamente en carpeta local');
                         return true;
                     } catch (permError) {
+                        // Si el usuario no concede permisos, solo registramos el error sin molestar
                         console.warn('Permiso no concedido para guardado automático:', permError);
                         return false;
                     }
+                } else {
+                    // Navegador sin soporte: no hacemos nada automáticamente
+                    console.log('Navegador sin soporte para guardado en carpeta');
+                    return false;
                 }
-                return false;
             } catch (error) {
                 console.error('Error al guardar en carpeta local:', error);
                 return false;
             }
         }
         
+        // ============================================
+        // FUNCIÓN: LIMPIAR REGISTROS DEL MES ACTUAL
+        // ============================================
         async function limpiarRegistrosMesActual() {
             if (!usuarioActual) {
                 mostrarMensaje('Debes seleccionar un usuario', 'error');
@@ -2086,22 +1776,26 @@ Generado: ${new Date().toLocaleString()}
             const mes = String(ahora.getMonth() + 1).padStart(2, '0');
             const nombreMes = meses[ahora.getMonth()];
             
+            // Mostrar modal de confirmación
             const modal = document.getElementById('confirmar-limpiar-modal');
             document.getElementById('usuario-limpiar').textContent = `${usuarioActual} - ${nombreMes} ${año}`;
             modal.classList.add('active');
             
+            // Manejadores temporales
             const confirmarBtn = document.getElementById('confirmar-limpiar-si');
             const cancelarBtn = document.getElementById('confirmar-limpiar-no');
             
             const confirmHandler = async function() {
                 modal.classList.remove('active');
                 
+                // Filtrar registros: mantener los que NO son del usuario en este mes
                 const registrosNuevos = registros.filter(r => 
                     !(r.usuario === usuarioActual && r.fecha.startsWith(`${año}-${mes}`))
                 );
                 
                 registros = registrosNuevos;
                 
+                // Guardar cambios
                 guardarEnLocalStorage('registros', registros);
                 if (usuarioGoogle) {
                     await guardarDatosEnLaNube();
@@ -2109,8 +1803,8 @@ Generado: ${new Date().toLocaleString()}
                 
                 actualizarTabla();
                 mostrarMensaje(`✅ Registros de ${nombreMes} ${año} eliminados correctamente`, 'success');
-                document.dispatchEvent(new CustomEvent('mesLimpiado'));
                 
+                // Limpiar event listeners
                 confirmarBtn.removeEventListener('click', confirmHandler);
                 cancelarBtn.removeEventListener('click', cancelHandler);
             };
@@ -2127,9 +1821,10 @@ Generado: ${new Date().toLocaleString()}
         }
         
         // ============================================
-        // FUNCIONES DE TABLA Y FILTROS - MEJORADAS (basadas en el código de referencia)
+        // FUNCIONES DE TABLA Y FILTROS
         // ============================================
         
+        // Generar todos los días del mes actual
         function generarDiasCompletosDelMes() {
             const ahora = new Date();
             const año = ahora.getFullYear();
@@ -2142,11 +1837,13 @@ Generado: ${new Date().toLocaleString()}
                 const fechaObj = new Date(año, mes - 1, dia);
                 const diaSemana = diasSemana[fechaObj.getDay()];
                 
+                // Buscar registros para este día
                 const registrosDia = registros.filter(r => 
                     r.usuario === usuarioActual && 
                     r.fecha === fechaStr
                 );
                 
+                // Crear objeto día completo
                 const diaCompleto = {
                     fecha: fechaStr,
                     diaSemana: diaSemana,
@@ -2154,6 +1851,7 @@ Generado: ${new Date().toLocaleString()}
                     tarde: { entrada: '', salida: '', horas: 0 }
                 };
                 
+                // Llenar con datos si existen
                 registrosDia.forEach(registro => {
                     if (registro.turno === 'Mañana') {
                         diaCompleto.mañana.entrada = registro.entrada || '';
@@ -2172,23 +1870,10 @@ Generado: ${new Date().toLocaleString()}
             return diasCompletos;
         }
         
+        // Actualizar tabla
         function actualizarTabla() {
             const tbody = document.getElementById('cuerpo-tabla');
             const filtroMes = document.getElementById('filtro-mes').value;
-            
-            if (!tbody) return;
-            
-            if (!usuarioActual) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="9" style="text-align: center; padding: 25px; color: var(--color-text-muted);">
-                            👤 Selecciona un usuario para ver sus registros
-                        </td>
-                    </tr>
-                `;
-                actualizarResumenPago(0, 0);
-                return;
-            }
             
             // Obtener todos los días del mes actual
             const diasCompletos = generarDiasCompletosDelMes();
@@ -2257,11 +1942,13 @@ Generado: ${new Date().toLocaleString()}
             actualizarFiltroMeses();
         }
         
+        // Actualizar resumen de pagos
         function actualizarResumenPago(totalHoras, totalPagar) {
             document.getElementById('total-horas').value = `${totalHoras.toFixed(2)} horas`;
             document.getElementById('total-pagar').value = `$${totalPagar.toFixed(2)}`;
         }
         
+        // Actualizar filtro de meses
         function actualizarFiltroMeses() {
             const select = document.getElementById('filtro-mes');
             const mesesRegistrados = new Set();
@@ -2296,6 +1983,7 @@ Generado: ${new Date().toLocaleString()}
         // FUNCIONES DE IMPORTACIÓN/EXPORTACIÓN
         // ============================================
         
+        // Exportar sistema
         function exportarSistema() {
             if (isProcessing) return;
             isProcessing = true;
@@ -2307,31 +1995,56 @@ Generado: ${new Date().toLocaleString()}
                     metadata: {
                         nombreSistema: "Sistema de Registro de Turnos - Editorial Binomio",
                         fechaExportacion: new Date().toISOString(),
-                        version: "3.0",
+                        version: "2.5",
                         usuarioActual: usuarioActual,
-                        salarioHora: parseFloat(document.getElementById('salario-hora').value) || 8.50,
-                        totalRegistros: registros.length,
-                        totalUsuarios: usuarios.length
+                        salarioHora: parseFloat(document.getElementById('salario-hora').value) || 8.50
                     },
                     usuarios: usuarios,
                     registrosOriginales: registros,
                     diasCompletosDelMes: diasCompletosDelMes,
-                    estadisticas: {
-                        porUsuario: {}
+                    resumenMesActual: {
+                        totalHoras: 0,
+                        totalPagar: 0,
+                        diasTrabajados: 0,
+                        diasSinTrabajar: 0,
+                        diasDetalle: []
                     }
                 };
                 
-                usuarios.forEach(u => {
-                    const registrosUsuario = registros.filter(r => r.usuario === u);
-                    const horasTotales = registrosUsuario.reduce((acc, r) => acc + (r.horas || 0), 0);
-                    const pagoTotal = registrosUsuario.reduce((acc, r) => acc + (r.total || 0), 0);
+                let totalHorasMes = 0;
+                let totalPagarMes = 0;
+                let diasTrabajados = 0;
+                
+                diasCompletosDelMes.forEach(dia => {
+                    const horasDia = dia.mañana.horas + dia.tarde.horas;
+                    const totalDia = horasDia * datosExportacion.metadata.salarioHora;
                     
-                    datosExportacion.estadisticas.porUsuario[u] = {
-                        registros: registrosUsuario.length,
-                        horas: horasTotales,
-                        pago: pagoTotal
+                    totalHorasMes += horasDia;
+                    totalPagarMes += totalDia;
+                    
+                    const trabajoDia = {
+                        fecha: dia.fecha,
+                        diaSemana: dia.diaSemana,
+                        trabajoRealizado: horasDia > 0,
+                        horasTrabajadas: horasDia,
+                        totalDia: totalDia,
+                        detalle: {
+                            mañana: dia.mañana,
+                            tarde: dia.tarde
+                        }
                     };
+                    
+                    datosExportacion.resumenMesActual.diasDetalle.push(trabajoDia);
+                    
+                    if (horasDia > 0) diasTrabajados++;
                 });
+                
+                const totalDiasMes = diasCompletosDelMes.length;
+                
+                datosExportacion.resumenMesActual.totalHoras = totalHorasMes;
+                datosExportacion.resumenMesActual.totalPagar = totalPagarMes;
+                datosExportacion.resumenMesActual.diasTrabajados = diasTrabajados;
+                datosExportacion.resumenMesActual.diasSinTrabajar = totalDiasMes - diasTrabajados;
                 
                 const datosJSON = JSON.stringify(datosExportacion, null, 2);
                 const blob = new Blob([datosJSON], { type: 'application/json' });
@@ -2340,9 +2053,7 @@ Generado: ${new Date().toLocaleString()}
                 const ahora = new Date();
                 const año = ahora.getFullYear();
                 const mes = String(ahora.getMonth() + 1).padStart(2, '0');
-                const dia = String(ahora.getDate()).padStart(2, '0');
-                
-                const nombreArchivo = `registro_binomio_${año}${mes}${dia}_v3.json`;
+                const nombreArchivo = `registro_turnos_${usuarioActual}_${año}_${mes}_completo.json`;
                 
                 const a = document.createElement('a');
                 a.href = url;
@@ -2352,9 +2063,7 @@ Generado: ${new Date().toLocaleString()}
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
                 
-                localStorage.setItem('ultimaExportacion', Date.now().toString());
-                
-                mostrarMensaje(`✅ Sistema exportado: ${registros.length} registros`, 'success');
+                mostrarMensaje('✅ Sistema exportado con TODOS los días del mes', 'success');
             } catch (error) {
                 console.error('Error al exportar:', error);
                 mostrarMensaje('❌ Error al exportar el sistema', 'error');
@@ -2363,6 +2072,7 @@ Generado: ${new Date().toLocaleString()}
             }
         }
         
+        // Importar sistema
         function importarSistema() {
             if (isProcessing) return;
             
@@ -2387,43 +2097,10 @@ Generado: ${new Date().toLocaleString()}
                             throw new Error('Archivo JSON no válido');
                         }
                         
-                        const mensajePreview = `
-📁 ARCHIVO A IMPORTAR:
-👥 Usuarios: ${datosImportados.usuarios.length}
-📊 Registros: ${datosImportados.registrosOriginales.length}
-👤 Usuario activo: ${datosImportados.metadata?.usuarioActual || 'Ninguno'}
-
-¿Deseas importar estos datos?
-                        `;
-                        
-                        if (confirm(mensajePreview)) {
-                            const opcion = confirm('¿Fusionar con datos existentes?\n\n✓ Aceptar = FUSIONAR (mantiene datos actuales)\n✗ Cancelar = REEMPLAZAR (pierde datos actuales)');
-                            
-                            if (opcion) {
-                                const usuariosExistentes = new Set(usuarios);
-                                datosImportados.usuarios.forEach(u => usuariosExistentes.add(u));
-                                usuarios = Array.from(usuariosExistentes);
-                                
-                                const registrosMap = new Map();
-                                registros.forEach(r => {
-                                    const key = `${r.usuario}-${r.fecha}-${r.turno}`;
-                                    registrosMap.set(key, r);
-                                });
-                                
-                                datosImportados.registrosOriginales.forEach(r => {
-                                    const key = `${r.usuario}-${r.fecha}-${r.turno}`;
-                                    registrosMap.set(key, r);
-                                });
-                                
-                                registros = Array.from(registrosMap.values());
-                            } else {
-                                usuarios = datosImportados.usuarios;
-                                registros = datosImportados.registrosOriginales;
-                            }
-                            
-                            if (datosImportados.metadata?.usuarioActual) {
-                                usuarioActual = datosImportados.metadata.usuarioActual;
-                            }
+                        if (confirm('¿Estás seguro de importar estos datos?\nSe sobrescribirán los datos actuales.')) {
+                            usuarios = datosImportados.usuarios;
+                            registros = datosImportados.registrosOriginales;
+                            usuarioActual = datosImportados.metadata?.usuarioActual || usuarioActual;
                             
                             if (datosImportados.metadata?.salarioHora) {
                                 document.getElementById('salario-hora').value = datosImportados.metadata.salarioHora;
@@ -2440,7 +2117,7 @@ Generado: ${new Date().toLocaleString()}
                             if (usuarioActual) actualizarDisplayUsuario();
                             actualizarTabla();
                             
-                            mostrarMensaje(`✅ Sistema importado correctamente (${opcion ? 'Fusionado' : 'Reemplazado'})`, 'success');
+                            mostrarMensaje('✅ Sistema importado correctamente', 'success');
                         }
                     } catch (error) {
                         console.error('Error al importar:', error);
@@ -2464,7 +2141,6 @@ Generado: ${new Date().toLocaleString()}
             document.getElementById('password-input').value = '';
             document.getElementById('password-error').style.display = 'none';
             document.getElementById('password-input').focus();
-            document.dispatchEvent(new CustomEvent('devPanelOpened'));
         }
         
         function verificarPassword() {
@@ -2537,644 +2213,8 @@ Generado: ${new Date().toLocaleString()}
         }
         
         // ============================================
-        // SISTEMA DE SONIDOS
+        // CLASE FESTIVIDADES BOLIVIA (AUTOMÁTICA - SIN BOTÓN)
         // ============================================
-        
-        class SoundSystem {
-            constructor() {
-                this.enabled = true;
-                this.volume = 0.5;
-                this.context = null;
-                this.sounds = {};
-                this.initAudio();
-            }
-            
-            initAudio() {
-                try {
-                    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-                    this.context = new AudioContext();
-                } catch (e) {
-                    console.warn('Web Audio API no soportada');
-                }
-            }
-            
-            playSound(type) {
-                if (!this.enabled || !this.context) return;
-                
-                if (this.context.state === 'suspended') {
-                    this.context.resume();
-                }
-                
-                const now = this.context.currentTime;
-                
-                switch(type) {
-                    case 'success':
-                        this.playSuccess(now);
-                        break;
-                    case 'reminder':
-                        this.playReminder(now);
-                        break;
-                    case 'urgent':
-                        this.playUrgent(now);
-                        break;
-                    case 'celebration':
-                        this.playCelebration(now);
-                        break;
-                    case 'error':
-                        this.playError(now);
-                        break;
-                    case 'morning':
-                        this.playMorning(now);
-                        break;
-                    case 'afternoon':
-                        this.playAfternoon(now);
-                        break;
-                    case 'festive':
-                        this.playFestive(now);
-                        break;
-                }
-            }
-            
-            playSuccess(now) {
-                const osc = this.context.createOscillator();
-                const gain = this.context.createGain();
-                
-                osc.type = 'sine';
-                osc.frequency.value = 523.25;
-                
-                gain.gain.setValueAtTime(0, now);
-                gain.gain.linearRampToValueAtTime(this.volume, now + 0.02);
-                gain.gain.linearRampToValueAtTime(0, now + 0.3);
-                
-                osc.connect(gain);
-                gain.connect(this.context.destination);
-                
-                osc.start(now);
-                osc.stop(now + 0.3);
-                
-                setTimeout(() => {
-                    const osc2 = this.context.createOscillator();
-                    const gain2 = this.context.createGain();
-                    osc2.type = 'sine';
-                    osc2.frequency.value = 659.25;
-                    gain2.gain.setValueAtTime(0, now);
-                    gain2.gain.linearRampToValueAtTime(this.volume * 0.8, now + 0.02);
-                    gain2.gain.linearRampToValueAtTime(0, now + 0.3);
-                    osc2.connect(gain2);
-                    gain2.connect(this.context.destination);
-                    osc2.start(now + 0.15);
-                    osc2.stop(now + 0.45);
-                }, 150);
-            }
-            
-            playReminder(now) {
-                const osc = this.context.createOscillator();
-                const gain = this.context.createGain();
-                
-                osc.type = 'triangle';
-                osc.frequency.value = 392.00;
-                
-                gain.gain.setValueAtTime(0, now);
-                gain.gain.linearRampToValueAtTime(this.volume * 0.6, now + 0.02);
-                gain.gain.setValueAtTime(this.volume * 0.6, now + 0.1);
-                gain.gain.linearRampToValueAtTime(0, now + 0.3);
-                
-                osc.connect(gain);
-                gain.connect(this.context.destination);
-                
-                osc.start(now);
-                osc.stop(now + 0.3);
-            }
-            
-            playUrgent(now) {
-                const osc1 = this.context.createOscillator();
-                const osc2 = this.context.createOscillator();
-                const gain = this.context.createGain();
-                
-                osc1.type = 'sawtooth';
-                osc2.type = 'sawtooth';
-                osc1.frequency.value = 440.00;
-                osc2.frequency.value = 554.37;
-                
-                gain.gain.setValueAtTime(0, now);
-                gain.gain.linearRampToValueAtTime(this.volume * 0.7, now + 0.02);
-                gain.gain.setValueAtTime(this.volume * 0.7, now + 0.3);
-                gain.gain.linearRampToValueAtTime(0, now + 0.6);
-                
-                osc1.connect(gain);
-                osc2.connect(gain);
-                gain.connect(this.context.destination);
-                
-                osc1.start(now);
-                osc2.start(now);
-                osc1.stop(now + 0.6);
-                osc2.stop(now + 0.6);
-            }
-            
-            playCelebration(now) {
-                const notas = [261.63, 329.63, 392.00, 523.25];
-                
-                notas.forEach((freq, i) => {
-                    setTimeout(() => {
-                        const osc = this.context.createOscillator();
-                        const gain = this.context.createGain();
-                        
-                        osc.type = 'sine';
-                        osc.frequency.value = freq;
-                        
-                        gain.gain.setValueAtTime(0, now);
-                        gain.gain.linearRampToValueAtTime(this.volume * 0.5, now + 0.02);
-                        gain.gain.linearRampToValueAtTime(0, now + 0.2);
-                        
-                        osc.connect(gain);
-                        gain.connect(this.context.destination);
-                        
-                        osc.start(now);
-                        osc.stop(now + 0.2);
-                    }, i * 150);
-                });
-            }
-            
-            playError(now) {
-                const osc = this.context.createOscillator();
-                const gain = this.context.createGain();
-                
-                osc.type = 'sawtooth';
-                osc.frequency.value = 220.00;
-                
-                gain.gain.setValueAtTime(0, now);
-                gain.gain.linearRampToValueAtTime(this.volume, now + 0.02);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
-                
-                osc.connect(gain);
-                gain.connect(this.context.destination);
-                
-                osc.start(now);
-                osc.stop(now + 0.5);
-            }
-            
-            playMorning(now) {
-                const osc = this.context.createOscillator();
-                const gain = this.context.createGain();
-                
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(523.25, now);
-                osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.3);
-                
-                gain.gain.setValueAtTime(0, now);
-                gain.gain.linearRampToValueAtTime(this.volume * 0.5, now + 0.02);
-                gain.gain.linearRampToValueAtTime(0, now + 0.5);
-                
-                osc.connect(gain);
-                gain.connect(this.context.destination);
-                
-                osc.start(now);
-                osc.stop(now + 0.5);
-            }
-            
-            playAfternoon(now) {
-                const osc = this.context.createOscillator();
-                const gain = this.context.createGain();
-                
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(392.00, now);
-                osc.frequency.exponentialRampToValueAtTime(523.25, now + 0.3);
-                
-                gain.gain.setValueAtTime(0, now);
-                gain.gain.linearRampToValueAtTime(this.volume * 0.5, now + 0.02);
-                gain.gain.linearRampToValueAtTime(0, now + 0.5);
-                
-                osc.connect(gain);
-                gain.connect(this.context.destination);
-                
-                osc.start(now);
-                osc.stop(now + 0.5);
-            }
-            
-            playFestive(now) {
-                for (let i = 0; i < 5; i++) {
-                    setTimeout(() => {
-                        const osc = this.context.createOscillator();
-                        const gain = this.context.createGain();
-                        
-                        osc.type = i % 2 === 0 ? 'sine' : 'triangle';
-                        osc.frequency.value = 523.25 + (i * 100);
-                        
-                        gain.gain.setValueAtTime(0, now);
-                        gain.gain.linearRampToValueAtTime(this.volume * 0.3, now + 0.02);
-                        gain.gain.linearRampToValueAtTime(0, now + 0.2);
-                        
-                        osc.connect(gain);
-                        gain.connect(this.context.destination);
-                        
-                        osc.start(now);
-                        osc.stop(now + 0.2);
-                    }, i * 100);
-                }
-            }
-            
-            toggle() {
-                this.enabled = !this.enabled;
-                return this.enabled;
-            }
-        }
-        
-        // ============================================
-        // SISTEMA DE NOTIFICACIONES DUOLINGO
-        // ============================================
-        
-        class DuoNotificationSystem {
-            constructor() {
-                this.container = null;
-                this.notifications = [];
-                this.maxNotifications = 3;
-                this.sounds = window.soundSystem || new SoundSystem();
-                this.lastNotificationTime = {};
-                
-                this.messages = {
-                    registroGeneral: [
-                        { text: "Tu jornada en la editorial no se va a registrar sola... a menos que tengas un asistente invisible. Entra y marca tu turno.", emoji: "👻", categoria: "urgente" },
-                        { text: "Son las 9:30 AM. El búho de la editorial lleva 30 minutos mirando la puerta. No le hagas esperar.", emoji: "🦉", categoria: "incomodo" },
-                        { text: "El 90% de la redacción ya fichó la entrada. ¿Vas a ser el único que empiece tarde el informe?", emoji: "📊", categoria: "presion" },
-                        { text: "Las horas no registradas son páginas en blanco en la historia de la editorial. Escribe la tuya.", emoji: "📖", categoria: "emocional" },
-                        { text: "Pensar en que no has fichado toma 3 horas. Fichar toma 2 minutos. Las matemáticas no mienten.", emoji: "🧮", categoria: "logica" }
-                    ]
-                };
-                
-                this.init();
-            }
-            
-            init() {
-                this.container = document.createElement('div');
-                this.container.className = 'notification-container';
-                document.body.appendChild(this.container);
-                
-                document.addEventListener('click', () => {
-                    if (this.sounds.context && this.sounds.context.state === 'suspended') {
-                        this.sounds.context.resume();
-                    }
-                }, { once: true });
-            }
-            
-            showNotification({ title, message, category = "info", icon = "📌", emoji = "🦉", color = "var(--notification-info)", duration = 8000, sound = null, actions = [] }) {
-                
-                if (this.container.children.length >= this.maxNotifications) {
-                    const oldest = this.container.firstChild;
-                    if (oldest) {
-                        oldest.classList.add('hiding');
-                        setTimeout(() => oldest.remove(), 500);
-                    }
-                }
-                
-                if (sound) {
-                    this.sounds.playSound(sound);
-                }
-                
-                const notification = document.createElement('div');
-                notification.className = 'duo-notification';
-                notification.style.setProperty('--notification-color', color);
-                
-                const ahora = new Date();
-                const horaStr = ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-                
-                let actionsHtml = '';
-                if (actions.length > 0) {
-                    actionsHtml = '<div class="notification-actions">' + actions.map(action => 
-                        `<button class="notification-btn" data-action="${action.text}">${action.text}</button>`
-                    ).join('') + '</div>';
-                }
-                
-                notification.innerHTML = `
-                    <div class="notification-header">
-                        <div class="notification-icon" style="background: ${color}">
-                            ${icon}
-                        </div>
-                        <span class="notification-category">${category.toUpperCase()}</span>
-                        <span class="notification-title">${title}</span>
-                    </div>
-                    <div class="notification-content">
-                        ${message}
-                    </div>
-                    <div class="notification-emoji">${emoji}</div>
-                    <div class="notification-progress" style="background: ${color}"></div>
-                    <div class="notification-time">
-                        ⏰ ${horaStr}
-                        <span class="notification-badge">${this.getTiempoRestante()}</span>
-                    </div>
-                    ${actionsHtml}
-                `;
-                
-                this.container.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.classList.add('show');
-                }, 10);
-                
-                const timeout = setTimeout(() => {
-                    this.closeNotification(notification);
-                }, duration);
-                
-                this.notifications.push({ element: notification, timeout });
-                
-                notification.addEventListener('click', (e) => {
-                    if (!e.target.classList.contains('notification-btn')) {
-                        this.closeNotification(notification);
-                    }
-                });
-                
-                if (actions.length > 0) {
-                    notification.querySelectorAll('.notification-btn').forEach((btn, index) => {
-                        btn.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            if (actions[index] && actions[index].handler) {
-                                actions[index].handler();
-                            }
-                            this.closeNotification(notification);
-                        });
-                    });
-                }
-            }
-            
-            getTiempoRestante() {
-                const ahora = new Date();
-                const hora = ahora.getHours();
-                if (hora < 12) return "MAÑANA";
-                if (hora < 19) return "TARDE";
-                return "NOCHE";
-            }
-            
-            closeNotification(notification) {
-                if (!notification) return;
-                
-                notification.classList.add('hiding');
-                
-                const notifRef = this.notifications.find(n => n.element === notification);
-                if (notifRef) {
-                    clearTimeout(notifRef.timeout);
-                    this.notifications = this.notifications.filter(n => n.element !== notification);
-                }
-                
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.remove();
-                    }
-                }, 500);
-            }
-            
-            showCustomNotification(type, data = {}) {
-                switch(type) {
-                    case 'login':
-                        this.showNotification({
-                            title: "🔐 Bienvenido",
-                            message: `¡Hola ${data.nombre}! El sistema te ha echado de menos.`,
-                            category: "bienvenida",
-                            icon: "👋",
-                            emoji: "😊",
-                            color: "var(--notification-success)",
-                            sound: "success"
-                        });
-                        break;
-                    case 'logout':
-                        this.showNotification({
-                            title: "👋 Hasta luego",
-                            message: "Vuelve pronto... el búho te estará esperando.",
-                            category: "despedida",
-                            icon: "🦉",
-                            emoji: "😢",
-                            color: "var(--notification-warning)",
-                            sound: "reminder"
-                        });
-                        break;
-                    case 'sync':
-                        this.showNotification({
-                            title: "☁️ Sincronizado",
-                            message: "Tus datos están seguros en la nube. Como el Quijote en una biblioteca.",
-                            category: "backup",
-                            icon: "☁️",
-                            emoji: "🔒",
-                            color: "var(--notification-info)",
-                            sound: "success"
-                        });
-                        break;
-                }
-            }
-        }
-        
-        // ============================================
-        // CONTADOR DE 5 SEGUNDOS
-        // ============================================
-        
-        class ContadorRegistro {
-            constructor() {
-                this.activo = false;
-                this.tiempoRestante = 5;
-                this.turnoPendiente = null;
-                this.tipoPendiente = null;
-                this.intervalo = null;
-                this.elemento = null;
-                this.onCompletado = null;
-                this.onCancelado = null;
-                
-                this.init();
-            }
-            
-            init() {
-                this.crearElementos();
-            }
-            
-            crearElementos() {
-                this.elemento = document.createElement('div');
-                this.elemento.className = 'contador-registro';
-                this.elemento.innerHTML = `
-                    <div class="contador-header">
-                        <div class="contador-icono" id="contador-icono">⏰</div>
-                        <div class="contador-titulo" id="contador-titulo">REGISTRANDO TURNO</div>
-                    </div>
-                    <div class="contador-info">
-                        <div class="contador-turno" id="contador-turno"></div>
-                        <div class="contador-fecha" id="contador-fecha"></div>
-                    </div>
-                    <div class="contador-numero" id="contador-numero">5</div>
-                    <div class="contador-barra">
-                        <div class="contador-progreso" id="contador-progreso" style="width: 100%;"></div>
-                    </div>
-                    <div class="contador-botones">
-                        <button class="contador-btn cancelar" id="contador-cancelar">✗ CANCELAR</button>
-                        <button class="contador-btn confirmar" id="contador-confirmar">✓ CONFIRMAR</button>
-                    </div>
-                    <div class="contador-ayuda">⏎ Presiona ESPACIO para confirmar • ESC para cancelar</div>
-                `;
-                
-                document.body.appendChild(this.elemento);
-                
-                document.getElementById('contador-cancelar').addEventListener('click', () => this.cancelar());
-                document.getElementById('contador-confirmar').addEventListener('click', () => this.confirmar());
-                
-                document.addEventListener('keydown', (e) => {
-                    if (!this.activo) return;
-                    if (e.key === 'Escape') {
-                        e.preventDefault();
-                        this.cancelar();
-                    } else if (e.key === ' ' || e.key === 'Space') {
-                        e.preventDefault();
-                        this.confirmar();
-                    }
-                });
-            }
-            
-            iniciar(turno, tipo, onCompletado, onCancelado) {
-                if (this.activo) {
-                    this.cancelar();
-                }
-                
-                this.activo = true;
-                this.tiempoRestante = 5;
-                this.turnoPendiente = turno;
-                this.tipoPendiente = tipo;
-                this.onCompletado = onCompletado;
-                this.onCancelado = onCancelado;
-                
-                this.actualizarInfo(turno, tipo);
-                
-                this.elemento.style.visibility = 'visible';
-                this.elemento.style.opacity = '1';
-                this.elemento.style.transform = 'translate(-50%, -50%) scale(1)';
-                
-                if (window.soundSystem) {
-                    window.soundSystem.playSound('reminder');
-                }
-                
-                this.intervalo = setInterval(() => {
-                    this.tiempoRestante--;
-                    
-                    const numeroEl = document.getElementById('contador-numero');
-                    if (numeroEl) {
-                        numeroEl.textContent = this.tiempoRestante;
-                        numeroEl.style.transform = 'scale(1.2)';
-                        setTimeout(() => {
-                            numeroEl.style.transform = 'scale(1)';
-                        }, 100);
-                    }
-                    
-                    const progresoEl = document.getElementById('contador-progreso');
-                    if (progresoEl) {
-                        const porcentaje = (this.tiempoRestante / 5) * 100;
-                        progresoEl.style.width = `${porcentaje}%`;
-                    }
-                    
-                    if (this.tiempoRestante <= 2) {
-                        numeroEl.style.color = 'var(--color-danger)';
-                    }
-                    
-                    if (this.tiempoRestante <= 0) {
-                        this.confirmar();
-                    }
-                }, 1000);
-            }
-            
-            actualizarInfo(turno, tipo) {
-                const iconoEl = document.getElementById('contador-icono');
-                if (iconoEl) {
-                    if (turno === 'Mañana') {
-                        iconoEl.innerHTML = tipo === 'Entrada' ? '🌅' : '🏁';
-                    } else {
-                        iconoEl.innerHTML = tipo === 'Entrada' ? '☀️' : '🌙';
-                    }
-                }
-                
-                const tituloEl = document.getElementById('contador-titulo');
-                if (tituloEl) {
-                    tituloEl.textContent = `${tipo} ${turno}`;
-                }
-                
-                const turnoEl = document.getElementById('contador-turno');
-                if (turnoEl) {
-                    turnoEl.innerHTML = `${tipo} <span style="color: ${turno === 'Mañana' ? '#FF9800' : '#2196F3'}">${turno}</span>`;
-                }
-                
-                const fechaEl = document.getElementById('contador-fecha');
-                if (fechaEl) {
-                    const ahora = new Date();
-                    const fecha = ahora.toLocaleDateString('es-ES');
-                    const hora = ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-                    fechaEl.innerHTML = `${fecha} • ${hora}`;
-                }
-                
-                const numeroEl = document.getElementById('contador-numero');
-                if (numeroEl) {
-                    numeroEl.textContent = '5';
-                    numeroEl.style.color = 'var(--color-warning)';
-                }
-                
-                const progresoEl = document.getElementById('contador-progreso');
-                if (progresoEl) {
-                    progresoEl.style.width = '100%';
-                }
-            }
-            
-            confirmar() {
-                if (!this.activo) return;
-                
-                clearInterval(this.intervalo);
-                
-                if (window.soundSystem) {
-                    window.soundSystem.playSound('success');
-                }
-                
-                this.elemento.style.opacity = '0';
-                this.elemento.style.transform = 'translate(-50%, -50%) scale(0.9)';
-                
-                setTimeout(() => {
-                    this.elemento.style.visibility = 'hidden';
-                }, 400);
-                
-                if (this.onCompletado) {
-                    this.onCompletado(this.turnoPendiente, this.tipoPendiente);
-                }
-                
-                this.activo = false;
-            }
-            
-            cancelar() {
-                if (!this.activo) return;
-                
-                clearInterval(this.intervalo);
-                
-                if (window.soundSystem) {
-                    window.soundSystem.playSound('error');
-                }
-                
-                const numeroEl = document.getElementById('contador-numero');
-                if (numeroEl) {
-                    numeroEl.textContent = '✗';
-                    numeroEl.style.color = 'var(--color-danger)';
-                }
-                
-                setTimeout(() => {
-                    this.elemento.style.opacity = '0';
-                    this.elemento.style.transform = 'translate(-50%, -50%) scale(0.9)';
-                    
-                    setTimeout(() => {
-                        this.elemento.style.visibility = 'hidden';
-                    }, 400);
-                }, 500);
-                
-                if (this.onCancelado) {
-                    this.onCancelado();
-                }
-                
-                this.activo = false;
-            }
-            
-            isActive() {
-                return this.activo;
-            }
-        }
-        
-        // ============================================
-        // CLASE FESTIVIDADES BOLIVIA
-        // ============================================
-        
         class EditorialBinomioFestividades {
             constructor() {
                 this.canvas = null;
@@ -3261,24 +2301,26 @@ Generado: ${new Date().toLocaleString()}
             }
 
             init() {
+                // Inicialización automática al cargar la página
                 window.addEventListener('DOMContentLoaded', () => {
                     const festividad = this.verificarHoy();
                     if (festividad) {
+                        // Pequeño retraso para no interferir con la carga principal
                         setTimeout(() => this.mostrarDoodle(festividad), 1000);
-                        document.dispatchEvent(new CustomEvent('festividadDetectada', { detail: festividad }));
                     }
                 });
                 
+                // También verificar cada hora por si cambia el día
                 setInterval(() => {
                     const festividad = this.verificarHoy();
                     if (festividad) {
                         this.mostrarDoodle(festividad);
-                        document.dispatchEvent(new CustomEvent('festividadDetectada', { detail: festividad }));
                     }
-                }, 3600000);
+                }, 3600000); // Cada hora
             }
 
             mostrarDoodle(festividad) {
+                // Cerrar doodle anterior si existe
                 if (this.overlay) this.cerrar();
                 
                 this.crearOverlay();
@@ -3286,8 +2328,10 @@ Generado: ${new Date().toLocaleString()}
                 this.crearUI(festividad);
                 this.iniciarAnimacion(festividad.tema);
                 
+                // Auto-cerrar después de 12 segundos
                 this.autoCloseTimer = setTimeout(() => this.cerrar(), 12000);
                 
+                // Si el usuario hace clic en algún lado, extender tiempo
                 document.addEventListener('click', () => {
                     clearTimeout(this.autoCloseTimer);
                     this.autoCloseTimer = setTimeout(() => this.cerrar(), 5000);
@@ -3400,7 +2444,58 @@ Generado: ${new Date().toLocaleString()}
                     rotation: Math.random() * Math.PI * 2,
                     rotationSpeed: (Math.random() - 0.5) * 0.05
                 };
-                return { ...base, type: 'circle' };
+
+                switch(tema) {
+                    case 'carnival':
+                        return {
+                            ...base,
+                            type: 'confetti',
+                            size: Math.random() * 12 + 6,
+                            speedY: Math.random() * 2 + 0.5,
+                            wobble: Math.random() * Math.PI * 2
+                        };
+                    case 'skulls':
+                        return {
+                            ...base,
+                            type: 'skull',
+                            size: Math.random() * 20 + 12,
+                            pulse: Math.random() * Math.PI
+                        };
+                    case 'fireworks':
+                        return {
+                            ...base,
+                            type: 'firework',
+                            vx: (Math.random() - 0.5) * 3,
+                            vy: (Math.random() - 0.5) * 3,
+                            life: 1,
+                            decay: Math.random() * 0.015 + 0.008
+                        };
+                    case 'christmas':
+                        return {
+                            ...base,
+                            type: 'snow',
+                            size: Math.random() * 6 + 2,
+                            speedY: Math.random() * 1.5 + 0.3,
+                            sway: Math.random() * 0.02
+                        };
+                    case 'bolivia':
+                        return {
+                            ...base,
+                            type: 'flag',
+                            size: Math.random() * 25 + 15,
+                            wave: Math.random() * Math.PI * 2
+                        };
+                    case 'fire':
+                        return {
+                            ...base,
+                            type: 'fire',
+                            size: Math.random() * 18 + 8,
+                            speedY: -Math.random() * 2.5 - 0.5,
+                            flicker: Math.random() * Math.PI
+                        };
+                    default:
+                        return { ...base, type: 'circle' };
+                }
             }
 
             animate() {
@@ -3427,24 +2522,148 @@ Generado: ${new Date().toLocaleString()}
                         }
                     }
                     
-                    ctx.save();
-                    ctx.translate(p.x, p.y);
-                    ctx.rotate(p.rotation);
-                    ctx.globalAlpha = p.opacity;
-                    ctx.fillStyle = p.color;
-                    ctx.beginPath();
-                    ctx.arc(0, 0, p.size, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.restore();
+                    this.actualizarParticula(p);
+                    this.dibujarParticula(p);
                     
                     if (p.x < -50 || p.x > canvas.width + 50 || 
                         p.y < -50 || p.y > canvas.height + 50) {
-                        p.x = Math.random() * canvas.width;
-                        p.y = -50;
+                        this.resetParticula(p);
                     }
                 });
                 
                 this.animationId = requestAnimationFrame(() => this.animate());
+            }
+
+            actualizarParticula(p) {
+                switch(p.type) {
+                    case 'confetti':
+                        p.wobble += 0.08;
+                        p.x += Math.sin(p.wobble) * 0.3;
+                        break;
+                    case 'snow':
+                        p.x += Math.sin(p.y * 0.008) * 0.3;
+                        break;
+                    case 'firework':
+                        p.life -= p.decay;
+                        p.vy += 0.08;
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        break;
+                    case 'flag':
+                        p.wave += 0.04;
+                        break;
+                    case 'fire':
+                        p.flicker += 0.15;
+                        p.size += Math.sin(p.flicker) * 0.3;
+                        p.opacity = 0.4 + Math.sin(p.flicker) * 0.2;
+                        break;
+                }
+            }
+
+            dibujarParticula(p) {
+                const ctx = this.ctx;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation);
+                ctx.globalAlpha = p.opacity;
+                
+                switch(p.type) {
+                    case 'confetti':
+                        ctx.fillStyle = p.color;
+                        ctx.beginPath();
+                        ctx.roundRect(-p.size/2, -p.size/4, p.size, p.size/2, 2);
+                        ctx.fill();
+                        break;
+                        
+                    case 'skull':
+                        ctx.fillStyle = p.color;
+                        ctx.beginPath();
+                        ctx.arc(0, -p.size/4, p.size/2, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.fillStyle = '#1a1a2e';
+                        ctx.beginPath();
+                        ctx.arc(-p.size/4, -p.size/4, p.size/6, 0, Math.PI * 2);
+                        ctx.arc(p.size/4, -p.size/4, p.size/6, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.fillRect(-p.size/3, p.size/4, p.size/1.5, p.size/4);
+                        break;
+                        
+                    case 'snow':
+                        ctx.fillStyle = '#FFF';
+                        ctx.beginPath();
+                        ctx.arc(0, 0, p.size, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.fillStyle = 'rgba(255,255,255,0.8)';
+                        ctx.beginPath();
+                        ctx.arc(-p.size/3, -p.size/3, p.size/3, 0, Math.PI * 2);
+                        ctx.fill();
+                        break;
+                        
+                    case 'flag':
+                        const wave = Math.sin(p.wave) * 4;
+                        ctx.fillStyle = '#e94560';
+                        ctx.fillRect(-p.size/2, -p.size/3, p.size, p.size/3);
+                        ctx.fillStyle = '#ffd700';
+                        ctx.fillRect(-p.size/2, 0, p.size, p.size/3);
+                        ctx.fillStyle = '#0f3460';
+                        ctx.fillRect(-p.size/2, p.size/3, p.size, p.size/3);
+                        ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+                        ctx.beginPath();
+                        ctx.moveTo(-p.size/2, 0);
+                        ctx.quadraticCurveTo(0, wave, p.size/2, 0);
+                        ctx.stroke();
+                        break;
+                        
+                    case 'firework':
+                        if (p.life > 0) {
+                            ctx.fillStyle = p.color;
+                            ctx.globalAlpha = p.life * p.opacity;
+                            ctx.beginPath();
+                            ctx.arc(0, 0, p.size * p.life, 0, Math.PI * 2);
+                            ctx.fill();
+                            ctx.strokeStyle = p.color;
+                            ctx.lineWidth = 1.5;
+                            ctx.beginPath();
+                            ctx.moveTo(0, 0);
+                            ctx.lineTo(-p.vx * 4, -p.vy * 4);
+                            ctx.stroke();
+                        }
+                        break;
+
+                    case 'fire':
+                        const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, p.size);
+                        gradient.addColorStop(0, p.color);
+                        gradient.addColorStop(0.4, 'rgba(255, 140, 0, 0.4)');
+                        gradient.addColorStop(1, 'transparent');
+                        ctx.fillStyle = gradient;
+                        ctx.beginPath();
+                        ctx.arc(0, 0, p.size, 0, Math.PI * 2);
+                        ctx.fill();
+                        break;
+                        
+                    default:
+                        ctx.fillStyle = p.color;
+                        ctx.beginPath();
+                        ctx.arc(0, 0, p.size, 0, Math.PI * 2);
+                        ctx.fill();
+                }
+                
+                ctx.restore();
+            }
+
+            resetParticula(p) {
+                const canvas = this.canvas;
+                p.x = Math.random() * canvas.width;
+                p.y = -50;
+                if (p.type === 'firework') {
+                    p.y = canvas.height + 50;
+                    p.vy = -Math.random() * 8 - 4;
+                    p.life = 1;
+                }
+                if (p.type === 'fire') {
+                    p.y = canvas.height + 50;
+                    p.opacity = Math.random() * 0.4 + 0.3;
+                }
             }
 
             compartir(festividad) {
@@ -3468,14 +2687,16 @@ Generado: ${new Date().toLocaleString()}
                 }
             }
         }
+
+        // Inicializar doodle de festividades (AUTOMÁTICO, SIN BOTÓN)
+        const doodle = new EditorialBinomioFestividades();
+        window.doodle = doodle; // Accesible globalmente por si acaso
         
         // ============================================
-        // INICIALIZACIÓN DE LA APLICACIÓN
+        // INICIALIZACIÓN DEL SISTEMA
         // ============================================
         
         async function inicializarAplicacion() {
-            console.log('🚀 Inicializando aplicación...');
-            
             // Cargar datos iniciales
             cargarDatosIniciales();
             
@@ -3483,13 +2704,7 @@ Generado: ${new Date().toLocaleString()}
             actualizarHora();
             setInterval(actualizarHora, 1000);
             
-            // Inicializar sistemas mejorados
-            window.soundSystem = new SoundSystem();
-            window.duoSystem = new DuoNotificationSystem();
-            window.contadorRegistro = new ContadorRegistro();
-            window.doodle = new EditorialBinomioFestividades();
-            
-            // Configurar Firebase Auth
+            // Configurar Firebase Auth State
             onAuthStateChanged(window.firebaseAuth, (user) => {
                 if (user) {
                     usuarioGoogle = user;
@@ -3519,7 +2734,7 @@ Generado: ${new Date().toLocaleString()}
                 }
             });
             
-            // Cargar mejoras guardadas
+            // Aplicar mejoras guardadas si existen
             const codigoGuardado = localStorage.getItem('codigo_mejoras');
             if (codigoGuardado) {
                 try {
@@ -3537,49 +2752,44 @@ Generado: ${new Date().toLocaleString()}
         }
         
         // ============================================
-        // EVENT LISTENERS - CORREGIDOS Y MEJORADOS
+        // EVENT LISTENERS
         // ============================================
         
         document.addEventListener('DOMContentLoaded', inicializarAplicacion);
         
-        // CORRECCIÓN: Asegurar que los event listeners estén bien asignados
-        document.getElementById('entrada-manana').addEventListener('click', function() {
-            console.log('🟠 Click en Entrada Mañana');
-            registrarTurnoConValidacion('Mañana', 'Entrada');
-        });
+        // Botones de turno
+        document.getElementById('entrada-manana').addEventListener('click', () => registrarTurno('Mañana', 'Entrada'));
+        document.getElementById('salida-manana').addEventListener('click', () => registrarTurno('Mañana', 'Salida'));
+        document.getElementById('entrada-tarde').addEventListener('click', () => registrarTurno('Tarde', 'Entrada'));
+        document.getElementById('salida-tarde').addEventListener('click', () => registrarTurno('Tarde', 'Salida'));
         
-        document.getElementById('salida-manana').addEventListener('click', function() {
-            console.log('🟠 Click en Salida Mañana');
-            registrarTurnoConValidacion('Mañana', 'Salida');
-        });
-        
-        document.getElementById('entrada-tarde').addEventListener('click', function() {
-            console.log('🔵 Click en Entrada Tarde');
-            registrarTurnoConValidacion('Tarde', 'Entrada');
-        });
-        
-        document.getElementById('salida-tarde').addEventListener('click', function() {
-            console.log('🔵 Click en Salida Tarde');
-            registrarTurnoConValidacion('Tarde', 'Salida');
-        });
-        
+        // Botones de usuario
         document.getElementById('cambiar-usuario').addEventListener('click', mostrarModalUsuario);
         
+        // Botones de gestión
         document.getElementById('gestion-usuarios').addEventListener('click', function() {
             mostrarMensaje('Función en desarrollo', 'error');
         });
         
+        // Botones de exportación/importación
         document.getElementById('exportar-sistema').addEventListener('click', exportarSistema);
         document.getElementById('importar-sistema').addEventListener('click', importarSistema);
+        
+        // NUEVO BOTÓN: LIMPIAR REGISTROS DEL MES
         document.getElementById('limpiar-mes-actual').addEventListener('click', limpiarRegistrosMesActual);
         
+        // EL BOTÓN DE FESTIVIDADES Y EL DE GUARDAR EN CARPETA HAN SIDO ELIMINADOS - AHORA SON AUTOMÁTICOS
+        
+        // Botones de autenticación Google
         document.getElementById('login-google').addEventListener('click', iniciarSesionGoogle);
         document.getElementById('logout-google').addEventListener('click', cerrarSesionGoogle);
         
+        // Botones de desarrollador
         document.getElementById('toggle-dev').addEventListener('click', mostrarPanelDesarrollador);
         document.getElementById('dev-save').addEventListener('click', implementarMejoras);
         document.getElementById('dev-reset').addEventListener('click', restaurarSistema);
         
+        // Modal de usuario
         document.getElementById('crear-usuario').addEventListener('click', crearUsuario);
         document.getElementById('cerrar-modal').addEventListener('click', () => {
             document.getElementById('usuario-modal').classList.remove('active');
@@ -3589,6 +2799,7 @@ Generado: ${new Date().toLocaleString()}
             if (e.key === 'Enter') crearUsuario();
         });
         
+        // Modal de contraseña
         document.getElementById('password-confirm').addEventListener('click', verificarPassword);
         document.getElementById('password-cancel').addEventListener('click', () => {
             document.getElementById('password-modal').classList.remove('active');
@@ -3600,16 +2811,11 @@ Generado: ${new Date().toLocaleString()}
             if (e.key === 'Enter') verificarPassword();
         });
         
+        // Filtros
         document.getElementById('filtro-mes').addEventListener('change', actualizarTabla);
         document.getElementById('salario-hora').addEventListener('input', actualizarTabla);
         
-        document.getElementById('toggle-sound').addEventListener('click', function() {
-            if (window.soundSystem) {
-                const enabled = window.soundSystem.toggle();
-                this.innerHTML = enabled ? '<i class="fas fa-volume-up"></i> Sonidos' : '<i class="fas fa-volume-mute"></i> Silenciado';
-            }
-        });
-        
+        // Cerrar modales al hacer clic fuera
         window.addEventListener('click', (event) => {
             if (event.target.classList.contains('modal')) {
                 event.target.classList.remove('active');
@@ -3619,6 +2825,7 @@ Generado: ${new Date().toLocaleString()}
             }
         });
         
+        // Cerrar con ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 document.querySelectorAll('.modal.active').forEach(modal => {
@@ -3628,16 +2835,8 @@ Generado: ${new Date().toLocaleString()}
             }
         });
         
+        // Optimización para dispositivos táctiles
         document.addEventListener('touchstart', function() {}, {passive: true});
-        
-        // Verificar botones al cargar
-        window.addEventListener('load', function() {
-            console.log('📋 Verificando botones:');
-            console.log('- Entrada Mañana:', document.getElementById('entrada-manana'));
-            console.log('- Salida Mañana:', document.getElementById('salida-manana'));
-            console.log('- Entrada Tarde:', document.getElementById('entrada-tarde'));
-            console.log('- Salida Tarde:', document.getElementById('salida-tarde'));
-        });
     </script>
 </body>
 </html>
