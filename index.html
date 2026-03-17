@@ -698,6 +698,112 @@
                 transform: none;
             }
         }
+        
+        /* Estilos para el contador de WhatsApp */
+        .whatsapp-timer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+        
+        .whatsapp-timer i {
+            font-size: 1.5rem;
+            animation: pulse 1s infinite;
+        }
+        
+        .timer-progress {
+            width: 4px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-left: 5px;
+        }
+        
+        .timer-progress-bar {
+            width: 100%;
+            height: 0%;
+            background: white;
+            transition: height 0.1s linear;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Estilos para el recordatorio de fin de mes */
+        .recordatorio-fin-mes {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 20px rgba(255, 152, 0, 0.4);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: slideDown 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .recordatorio-fin-mes i {
+            font-size: 1.5rem;
+        }
+        
+        .recordatorio-fin-mes:hover {
+            transform: translateX(-50%) translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 152, 0, 0.5);
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateX(-50%) translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Botón para configurar carpeta */
+        .btn-carpeta {
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+            color: white;
+        }
     </style>
     
     <!-- ESTILOS DEL DOODLE FESTIVIDADES BOLIVIA (AUTOMÁTICO) -->
@@ -1089,7 +1195,10 @@
                     <button class="btn btn-limpiar-mes" id="limpiar-mes-actual">
                         <i class="fas fa-trash-alt"></i> Limpiar mes actual
                     </button>
-                    <!-- EL BOTÓN DE GUARDAR EN CARPETA HA SIDO ELIMINADO - AHORA ES AUTOMÁTICO -->
+                    <!-- NUEVO BOTÓN: CONFIGURAR CARPETA (OPCIONAL) -->
+                    <button class="btn btn-carpeta" id="configurar-carpeta">
+                        <i class="fas fa-folder-open"></i> Configurar Carpeta
+                    </button>
                 </div>
                 
                 <div id="status-message" class="status"></div>
@@ -1207,6 +1316,18 @@
         let registros = [];
         let usuarioGoogle = null;
         let datosEnLaNube = false;
+        
+        // Variables para el temporizador de WhatsApp
+        let whatsappTimer = null;
+        let whatsappTimeout = null;
+        let whatsappData = null;
+        let timerInterval = null;
+        
+        // ============================================
+        // VARIABLE GLOBAL PARA LA CARPETA (CORREGIDO)
+        // ============================================
+        let carpetaRaizHandle = null;
+        let carpetaPermisoSolicitado = false;
         
         // Contraseña de desarrollador
         const PASSWORD_DEVELOPER = "menuruchan2";
@@ -1553,7 +1674,281 @@
             return horas + (minutos / 60);
         }
         
-        // Registrar turno (AHORA CON GUARDADO AUTOMÁTICO EN CARPETA)
+        // ============================================
+        // FUNCIÓN CORREGIDA: ENVIAR WHATSAPP CON DÍA DE LA SEMANA (SIN POP-UP)
+        // ============================================
+        function enviarWhatsAppConDia(turno, tipo, fecha, hora) {
+            // Obtener el día de la semana
+            const fechaObj = new Date(fecha + 'T12:00:00');
+            const diaSemana = diasSemana[fechaObj.getDay()];
+            
+            const mensaje = `📌 REGISTRO DE ASISTENCIA
+
+👤 Nombre: ${usuarioActual}
+📅 Fecha: ${fecha} (${diaSemana})
+⏰ Hora: ${hora}
+🟢 Tipo: ${tipo} ${turno}`;
+            
+            const numero = '+59163238887';
+            const mensajeCodificado = encodeURIComponent(mensaje);
+            
+            // SOLUCIÓN: Usar window.location.href en lugar de window.open
+            // Esto abre en la MISMA pestaña y evita el bloqueo de pop-ups
+            window.location.href = `https://wa.me/${numero}?text=${mensajeCodificado}`;
+            
+            // El mensaje ya no es necesario porque redirige
+        }
+        
+        // ============================================
+        // FUNCIÓN MODIFICADA: TEMPORIZADOR DE WHATSAPP (CON REDIRECCIÓN ASEGURADA)
+        // ============================================
+        function iniciarTemporizadorWhatsApp(turno, tipo, fecha, hora) {
+            // Cancelar temporizador anterior si existe
+            if (whatsappTimer) {
+                clearTimeout(whatsappTimeout);
+                clearInterval(timerInterval);
+                if (document.body.contains(whatsappTimer)) {
+                    whatsappTimer.remove();
+                }
+            }
+            
+            // Guardar datos para enviar después
+            whatsappData = { turno, tipo, fecha, hora };
+            
+            // Crear elemento visual del temporizador
+            whatsappTimer = document.createElement('div');
+            whatsappTimer.className = 'whatsapp-timer';
+            whatsappTimer.innerHTML = `
+                <i class="fab fa-whatsapp"></i>
+                <span>Enviando WhatsApp en <span id="timer-segundos">5</span>s</span>
+                <div class="timer-progress">
+                    <div class="timer-progress-bar" id="timer-progress-bar" style="height: 0%"></div>
+                </div>
+            `;
+            document.body.appendChild(whatsappTimer);
+            
+            let segundosRestantes = 5;
+            const timerSegundos = document.getElementById('timer-segundos');
+            const progressBar = document.getElementById('timer-progress-bar');
+            
+            // Actualizar cada 100ms para animación suave
+            timerInterval = setInterval(() => {
+                segundosRestantes -= 0.1;
+                if (timerSegundos) timerSegundos.textContent = Math.ceil(segundosRestantes);
+                if (progressBar) progressBar.style.height = `${(5 - segundosRestantes) * 20}%`;
+                
+                if (segundosRestantes <= 0) {
+                    clearInterval(timerInterval);
+                }
+            }, 100);
+            
+            // Programar envío de WhatsApp después de 5 segundos
+            whatsappTimeout = setTimeout(() => {
+                if (whatsappTimer && document.body.contains(whatsappTimer)) {
+                    whatsappTimer.remove();
+                }
+                
+                // MOSTRAR MENSAJE ANTES DE REDIRIGIR
+                mostrarMensaje('📨 Abriendo WhatsApp...', 'success');
+                
+                // AHORA SÍ REDIRIGE
+                enviarWhatsAppConDia(whatsappData.turno, whatsappData.tipo, whatsappData.fecha, whatsappData.hora);
+                
+                whatsappTimer = null;
+                whatsappData = null;
+            }, 5000);
+            
+            // Permitir cancelar haciendo clic en el temporizador
+            whatsappTimer.addEventListener('click', () => {
+                clearTimeout(whatsappTimeout);
+                clearInterval(timerInterval);
+                whatsappTimer.remove();
+                whatsappTimer = null;
+                whatsappData = null;
+                mostrarMensaje('📨 Envío de WhatsApp cancelado', 'error');
+            });
+        }
+        
+        // ============================================
+        // NUEVA FUNCIÓN: VERIFICAR Y MOSTRAR RECORDATORIO DE FIN DE MES
+        // ============================================
+        function verificarFinDeMes() {
+            const ahora = new Date();
+            const diaActual = ahora.getDate();
+            const mesActual = ahora.getMonth();
+            const añoActual = ahora.getFullYear();
+            
+            // Calcular último día del mes
+            const ultimoDiaDelMes = new Date(añoActual, mesActual + 1, 0).getDate();
+            
+            // Si es el último día del mes o uno de los últimos 2 días (para asegurar recordatorio)
+            if (diaActual >= ultimoDiaDelMes - 1) {
+                mostrarRecordatorioExportacion(ultimoDiaDelMes - diaActual);
+            }
+        }
+        
+        function mostrarRecordatorioExportacion(diasRestantes) {
+            // Verificar si ya se mostró hoy
+            const ultimoRecordatorio = localStorage.getItem('ultimoRecordatorioFinMes');
+            const hoy = new Date().toDateString();
+            
+            if (ultimoRecordatorio === hoy) {
+                return; // Ya se mostró hoy
+            }
+            
+            // Crear elemento de recordatorio
+            const recordatorio = document.createElement('div');
+            recordatorio.className = 'recordatorio-fin-mes';
+            
+            const textoDias = diasRestantes === 0 ? '¡HOY!' : 
+                             diasRestantes === 1 ? 'MAÑANA' : 
+                             `en ${diasRestantes} días`;
+            
+            recordatorio.innerHTML = `
+                <i class="fas fa-calendar-check"></i>
+                <div>
+                    <strong>⚠️ FIN DE MES ${textoDias}</strong><br>
+                    <small>No olvides exportar tus datos JSON</small>
+                </div>
+                <i class="fas fa-file-export" style="font-size: 1.2rem;"></i>
+            `;
+            
+            // Al hacer clic, abrir exportación
+            recordatorio.addEventListener('click', () => {
+                exportarSistema();
+                recordatorio.remove();
+                localStorage.setItem('ultimoRecordatorioFinMes', hoy);
+            });
+            
+            document.body.appendChild(recordatorio);
+            
+            // Guardar que ya se mostró hoy
+            localStorage.setItem('ultimoRecordatorioFinMes', hoy);
+            
+            // Auto-cerrar después de 15 segundos
+            setTimeout(() => {
+                if (document.body.contains(recordatorio)) {
+                    recordatorio.remove();
+                }
+            }, 15000);
+        }
+        
+        // ============================================
+        // FUNCIÓN MODIFICADA: SOLICITAR PERMISO DE CARPETA (UNA SOLA VEZ)
+        // ============================================
+        async function solicitarPermisoCarpeta() {
+            // Si ya tenemos permiso, no hacer nada
+            if (carpetaRaizHandle) {
+                mostrarMensaje('📁 Ya tienes una carpeta configurada', 'success');
+                return;
+            }
+            
+            try {
+                // Intentar usar File System Access API
+                if ('showDirectoryPicker' in window) {
+                    // Mostrar el selector UNA SOLA VEZ
+                    carpetaRaizHandle = await window.showDirectoryPicker({
+                        id: 'editorial-binomio-auto',
+                        mode: 'readwrite',
+                        startIn: 'downloads'
+                    });
+                    
+                    carpetaPermisoSolicitado = true;
+                    console.log('✅ Permiso de carpeta concedido');
+                    mostrarMensaje('📁 Carpeta de guardado configurada correctamente', 'success');
+                } else {
+                    mostrarMensaje('❌ Tu navegador no soporta guardado automático', 'error');
+                }
+            } catch (error) {
+                // Usuario canceló o error
+                console.log('Permiso de carpeta no concedido:', error);
+                mostrarMensaje('❌ No se configuró la carpeta de guardado', 'error');
+            }
+        }
+        
+        // ============================================
+        // FUNCIÓN MODIFICADA: GUARDAR REGISTRO EN CARPETA LOCAL (SIN PEDIR PERMISO CADA VEZ)
+        // ============================================
+        async function guardarRegistroEnCarpetaLocal(turno, tipo, fecha, hora) {
+            // Si no tenemos permiso, salir sin molestar
+            if (!carpetaRaizHandle) return false;
+            
+            try {
+                // Crear estructura de carpetas: EDITORIAL_BINOMIO/USUARIO/AÑO/MES/
+                const año = fecha.split('-')[0];
+                const mes = fecha.split('-')[1];
+                const nombreMes = meses[parseInt(mes) - 1];
+                
+                // Nombre del usuario (reemplazar espacios y caracteres especiales)
+                const usuarioFolder = usuarioActual.replace(/[^a-zA-Z0-9]/g, '_');
+                
+                // Generar contenido del registro
+                const registroTexto = `========================================
+EDITORIAL BINOMIO - REGISTRO DE TURNO
+========================================
+Usuario: ${usuarioActual}
+Fecha: ${fecha}
+Hora: ${hora}
+Turno: ${turno}
+Tipo: ${tipo}
+----------------------------------------
+Generado: ${new Date().toLocaleString()}
+========================================\n\n`;
+                
+                // Nombre del archivo: YYYY-MM-DD_TURNO_TIPO.txt
+                const nombreArchivo = `${fecha}_${turno}_${tipo}.txt`;
+                
+                // Usar el handle guardado
+                // Navegar/crear estructura: EDITORIAL_BINOMIO
+                let binomioDir;
+                try {
+                    binomioDir = await carpetaRaizHandle.getDirectoryHandle('EDITORIAL_BINOMIO', { create: true });
+                } catch {
+                    binomioDir = await carpetaRaizHandle.getDirectoryHandle('EDITORIAL_BINOMIO');
+                }
+                
+                // Navegar/crear: USUARIO
+                let usuarioDir;
+                try {
+                    usuarioDir = await binomioDir.getDirectoryHandle(usuarioFolder, { create: true });
+                } catch {
+                    usuarioDir = await binomioDir.getDirectoryHandle(usuarioFolder);
+                }
+                
+                // Navegar/crear: AÑO
+                let añoDir;
+                try {
+                    añoDir = await usuarioDir.getDirectoryHandle(año, { create: true });
+                } catch {
+                    añoDir = await usuarioDir.getDirectoryHandle(año);
+                }
+                
+                // Navegar/crear: MES
+                let mesDir;
+                try {
+                    mesDir = await añoDir.getDirectoryHandle(`${mes}_${nombreMes}`, { create: true });
+                } catch {
+                    mesDir = await añoDir.getDirectoryHandle(`${mes}_${nombreMes}`);
+                }
+                
+                // Crear/abrir archivo
+                const fileHandle = await mesDir.getFileHandle(nombreArchivo, { create: true });
+                const writable = await fileHandle.createWritable();
+                await writable.write(registroTexto);
+                await writable.close();
+                
+                console.log('✅ Registro guardado automáticamente en carpeta local');
+                return true;
+                
+            } catch (error) {
+                console.error('Error al guardar en carpeta local:', error);
+                // Si hay error, probablemente perdió permisos
+                carpetaRaizHandle = null;
+                return false;
+            }
+        }
+        
+        // Registrar turno (AHORA CON TEMPORIZADOR DE 5 SEGUNDOS Y REDIRECCIÓN CORREGIDA)
         async function registrarTurno(turno, tipo) {
             if (isProcessing) return;
             isProcessing = true;
@@ -1636,11 +2031,13 @@
                 
                 actualizarTabla();
                 
-                // Enviar notificación por WhatsApp
-                enviarWhatsApp(turno, tipo, fecha, hora);
+                // INICIAR TEMPORIZADOR DE 5 SEGUNDOS PARA WHATSAPP
+                iniciarTemporizadorWhatsApp(turno, tipo, fecha, hora);
                 
-                // ===== GUARDADO AUTOMÁTICO EN CARPETA LOCAL (SIN BOTÓN) =====
-                await guardarRegistroEnCarpetaLocal(turno, tipo, fecha, hora);
+                // ===== GUARDADO AUTOMÁTICO EN CARPETA LOCAL (SOLO SI YA HAY PERMISO) =====
+                if (carpetaRaizHandle) {
+                    guardarRegistroEnCarpetaLocal(turno, tipo, fecha, hora).catch(console.error);
+                }
                 
                 mostrarMensaje(`${tipo} ${turno} registrado correctamente`, 'success');
             } else {
@@ -1648,117 +2045,6 @@
             }
             
             isProcessing = false;
-        }
-        
-        // Enviar WhatsApp
-        function enviarWhatsApp(turno, tipo, fecha, hora) {
-            const mensaje = `📌 REGISTRO DE ASISTENCIA
-
-👤 Nombre: ${usuarioActual}
-📅 Fecha: ${fecha}
-⏰ Hora: ${hora}
-🟢 Tipo: ${tipo} ${turno}`;
-            
-            const numero = '+59163238887';
-            const mensajeCodificado = encodeURIComponent(mensaje);
-            const url = `https://wa.me/${numero}?text=${mensajeCodificado}`;
-            
-            window.open(url, '_blank');
-        }
-        
-        // ============================================
-        // FUNCIÓN AUTOMÁTICA: GUARDAR REGISTRO EN CARPETA LOCAL
-        // ============================================
-        async function guardarRegistroEnCarpetaLocal(turno, tipo, fecha, hora) {
-            try {
-                // Crear estructura de carpetas: EDITORIAL_BINOMIO/USUARIO/AÑO/MES/
-                const año = fecha.split('-')[0];
-                const mes = fecha.split('-')[1];
-                const nombreMes = meses[parseInt(mes) - 1];
-                
-                // Nombre del usuario (reemplazar espacios y caracteres especiales)
-                const usuarioFolder = usuarioActual.replace(/[^a-zA-Z0-9]/g, '_');
-                
-                // Generar contenido del registro
-                const registroTexto = `========================================
-EDITORIAL BINOMIO - REGISTRO DE TURNO
-========================================
-Usuario: ${usuarioActual}
-Fecha: ${fecha}
-Hora: ${hora}
-Turno: ${turno}
-Tipo: ${tipo}
-----------------------------------------
-Generado: ${new Date().toLocaleString()}
-========================================\n\n`;
-                
-                // Nombre del archivo: YYYY-MM-DD_TURNO_TIPO.txt
-                const nombreArchivo = `${fecha}_${turno}_${tipo}.txt`;
-                
-                // Intentar usar File System Access API (Chrome/Edge/Opera) - SIN INTERVENCIÓN DEL USUARIO
-                if ('showDirectoryPicker' in window) {
-                    try {
-                        // Usar un identificador persistente para no pedir permisos cada vez
-                        const dirHandle = await window.showDirectoryPicker({
-                            id: 'editorial-binomio-auto',
-                            mode: 'readwrite',
-                            startIn: 'downloads'
-                        });
-                        
-                        // Navegar/crear estructura: EDITORIAL_BINOMIO
-                        let binomioDir;
-                        try {
-                            binomioDir = await dirHandle.getDirectoryHandle('EDITORIAL_BINOMIO', { create: true });
-                        } catch {
-                            binomioDir = await dirHandle.getDirectoryHandle('EDITORIAL_BINOMIO');
-                        }
-                        
-                        // Navegar/crear: USUARIO
-                        let usuarioDir;
-                        try {
-                            usuarioDir = await binomioDir.getDirectoryHandle(usuarioFolder, { create: true });
-                        } catch {
-                            usuarioDir = await binomioDir.getDirectoryHandle(usuarioFolder);
-                        }
-                        
-                        // Navegar/crear: AÑO
-                        let añoDir;
-                        try {
-                            añoDir = await usuarioDir.getDirectoryHandle(año, { create: true });
-                        } catch {
-                            añoDir = await usuarioDir.getDirectoryHandle(año);
-                        }
-                        
-                        // Navegar/crear: MES
-                        let mesDir;
-                        try {
-                            mesDir = await añoDir.getDirectoryHandle(`${mes}_${nombreMes}`, { create: true });
-                        } catch {
-                            mesDir = await añoDir.getDirectoryHandle(`${mes}_${nombreMes}`);
-                        }
-                        
-                        // Crear/abrir archivo
-                        const fileHandle = await mesDir.getFileHandle(nombreArchivo, { create: true });
-                        const writable = await fileHandle.createWritable();
-                        await writable.write(registroTexto);
-                        await writable.close();
-                        
-                        console.log('✅ Registro guardado automáticamente en carpeta local');
-                        return true;
-                    } catch (permError) {
-                        // Si el usuario no concede permisos, solo registramos el error sin molestar
-                        console.warn('Permiso no concedido para guardado automático:', permError);
-                        return false;
-                    }
-                } else {
-                    // Navegador sin soporte: no hacemos nada automáticamente
-                    console.log('Navegador sin soporte para guardado en carpeta');
-                    return false;
-                }
-            } catch (error) {
-                console.error('Error al guardar en carpeta local:', error);
-                return false;
-            }
         }
         
         // ============================================
@@ -2704,6 +2990,11 @@ Generado: ${new Date().toLocaleString()}
             actualizarHora();
             setInterval(actualizarHora, 1000);
             
+            // Verificar fin de mes cada hora
+            setInterval(verificarFinDeMes, 3600000); // Cada hora
+            // También verificar al iniciar
+            setTimeout(verificarFinDeMes, 5000);
+            
             // Configurar Firebase Auth State
             onAuthStateChanged(window.firebaseAuth, (user) => {
                 if (user) {
@@ -2778,7 +3069,8 @@ Generado: ${new Date().toLocaleString()}
         // NUEVO BOTÓN: LIMPIAR REGISTROS DEL MES
         document.getElementById('limpiar-mes-actual').addEventListener('click', limpiarRegistrosMesActual);
         
-        // EL BOTÓN DE FESTIVIDADES Y EL DE GUARDAR EN CARPETA HAN SIDO ELIMINADOS - AHORA SON AUTOMÁTICOS
+        // NUEVO BOTÓN: CONFIGURAR CARPETA
+        document.getElementById('configurar-carpeta').addEventListener('click', solicitarPermisoCarpeta);
         
         // Botones de autenticación Google
         document.getElementById('login-google').addEventListener('click', iniciarSesionGoogle);
